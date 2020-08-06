@@ -14,28 +14,29 @@ public class TransportTaxTest {
 
     @BeforeEach
     void beforeEachTest() {
-        open("https://asn.permkrai.ru/transport-tax/");
     }
 
     @Test
-    void checkMainTextTest() {
+    void checkMainTextsTest() {
+        open("https://asn.permkrai.ru/transport-tax/");
+        
         //Проверяем наличие нужных текстов
-        $("body").shouldHave(text("Калькулятор \"Расчет транспортного налога\""));
-        $("body").shouldHave(text("Вид транспортного средства"));
-        $("body").shouldHave(text("Год (налоговый период)"));
-        $("body").shouldHave(text("Количество месяцев владения ТС в 2019 году"));
+        $("body").shouldHave(text("Калькулятор \"Расчет транспортного налога\""),
+                             text("Вид транспортного средства"),
+                             text("Год (налоговый период)"),
+                             text("Количество месяцев владения ТС в 2019 году"));
     }
 
     @Test
     void checkSuccessButtonAndTooltipTest() {
-        $(".success-control_button__1dySZ").shouldHave(text("Рассчитать"));
-
-        $(".success-control_button__1dySZ").is(disabled);
-
-        $(".success-control_button__1dySZ").hover();
-
-        $(".success-control_tooltip__3yK-5").getAttribute("data-tip").compareTo("Не заполнено поле \"Вид транспортного средства\"");
-
+        open("https://asn.permkrai.ru/transport-tax/");
+        
+        $(byText("Рассчитать").shouldBe(disabled).shouldHave(text("Рассчитать"));
+          
+        $("#tooltipSuccess").shouldNotHave(cssClass("show"))
+                            .shouldHave(text("Не заполнено поле \"Вид транспортного средства\""));
+        $(byText("Рассчитать").hover();
+        $("#tooltipSuccess").shouldHave(cssClass("show"));
         //ToDo Проверяем,что тултип показался
         //Todo Отвести курсор от кнопки
         //$(".success-control_button__1dySZ").;
@@ -47,14 +48,14 @@ public class TransportTaxTest {
         $(".select-search_text__145KP").click();
 
         $(byXpath("//body//li[3]")).click();
+        $("body li", 3).click();
         $(".type-of-vehicle_inputControl__3wuRp").setValue("5");
         $(byXpath("//body//label[1]")).click();
         $(".success-control_button__1dySZ").click();
 
-
         $(byXpath("//body//p[4]")).shouldHave(text("Автобусы"));
         $(byXpath("//body//p[6]")).shouldHave(text("5"));
-        $(byXpath("//p[contains(text(),'250')]")).shouldHave(text("250"));
+        $(byXpath("//p[contains(text(),'250')]")).shouldBe(visible);
 
     }
 
