@@ -4,8 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.disabled;
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.open;
@@ -14,30 +13,34 @@ public class TransportTaxTest {
 
     @BeforeEach
     void beforeEachTest() {
+
     }
 
     @Test
-    void checkMainTextsTest() {
+    void checkMainTextTest() {
         open("https://asn.permkrai.ru/transport-tax/");
-        
+
         //Проверяем наличие нужных текстов
         $("body").shouldHave(text("Калькулятор \"Расчет транспортного налога\""),
-                             text("Вид транспортного средства"),
-                             text("Год (налоговый период)"),
-                             text("Количество месяцев владения ТС в 2019 году"));
+                                        text("Вид транспортного средства"),
+                                        text("Год (налоговый период)"),
+                                        text("Количество месяцев владения ТС в 2019 году"));
     }
 
     @Test
     void checkSuccessButtonAndTooltipTest() {
         open("https://asn.permkrai.ru/transport-tax/");
-        
-        $(byText("Рассчитать").shouldBe(disabled).shouldHave(text("Рассчитать"));
-          
-        $("#tooltipSuccess").shouldNotHave(cssClass("show"))
-                            .shouldHave(text("Не заполнено поле \"Вид транспортного средства\""));
-        $(byText("Рассчитать").hover();
-        $("#tooltipSuccess").shouldHave(cssClass("show"));
-        //ToDo Проверяем,что тултип показался
+
+        $(byText("Рассчитать")).shouldBe(disabled).shouldHave(text("Рассчитать"));
+
+        $("#tooltipSuccess").shouldNotHave(cssClass("show"));
+
+        $(byText("Рассчитать")).hover();
+
+        $("#tooltipSuccess").shouldHave(cssClass("show")).shouldHave(text("Не заполнено поле \"Вид транспортного средства\""));
+
+
+        sleep(3000);
         //Todo Отвести курсор от кнопки
         //$(".success-control_button__1dySZ").;
         //Todo Проверяем,что тултип скрылся
@@ -45,13 +48,15 @@ public class TransportTaxTest {
 
     @Test
     void checkSuccessBusTest() {
+        open("https://asn.permkrai.ru/transport-tax/");
+
         $(".select-search_text__145KP").click();
 
-        $(byXpath("//body//li[3]")).click();
-        $("body li", 3).click();
+        $("body li", 2).click();
         $(".type-of-vehicle_inputControl__3wuRp").setValue("5");
         $(byXpath("//body//label[1]")).click();
         $(".success-control_button__1dySZ").click();
+
 
         $(byXpath("//body//p[4]")).shouldHave(text("Автобусы"));
         $(byXpath("//body//p[6]")).shouldHave(text("5"));
@@ -61,6 +66,9 @@ public class TransportTaxTest {
 
     @Test
     void checkSuccessPageTextTest() {
+
+        open("https://asn.permkrai.ru/transport-tax/");
+
         $(".select-search_text__145KP").click();
 
         $(byXpath("//body//li[3]")).click();
@@ -84,6 +92,8 @@ public class TransportTaxTest {
 
     @Test
     void checkSuccessPageBackButtonTest() {
+        open("https://asn.permkrai.ru/transport-tax/");
+
         $(".select-search_text__145KP").click();
 
         $(byXpath("//body//li[3]")).click();
