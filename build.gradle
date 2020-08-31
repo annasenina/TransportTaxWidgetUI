@@ -22,3 +22,7 @@ test {
 compileTestJava {
     options.encoding = 'UTF-8'
 }
+
+tast tests (type:Test) {
+    useJUnitPlatform()
+}
