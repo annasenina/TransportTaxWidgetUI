@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
@@ -19,6 +20,7 @@ public class TransportTaxTest {
 
     }
 
+    @Tag ("simple")
     @Test
     void searchSelenideInGoogleTest() {
         open("https://google.com");
@@ -26,9 +28,7 @@ public class TransportTaxTest {
         $(By.name("q")).val("selenide").pressEnter();
 
 
-        $("#res .g").shouldBe(visible).shouldHave(
-                text("Selenide:"),
-                text("selenide.org"));
+        $("#res .g").shouldBe(visible).shouldHave(text("selenide.org"));
     }
 
 
