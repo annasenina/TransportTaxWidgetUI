@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.open;
 
 import com.codeborne.selenide.Configuration;
+import org.openqa.selenium.By;
 
 public class TransportTaxTest {
 
@@ -19,7 +20,22 @@ public class TransportTaxTest {
     }
 
     @Test
+    void searchSelenideInGoogleTest() {
+        open("https://google.com");
+
+        $(By.name("q")).val("selenide").pressEnter();
+
+
+        $("#res .g").shouldBe(visible).shouldHave(
+                text("Selenide:"),
+                text("selenide.org"));
+    }
+
+
+
+    @Test
     void checkMainTextTest() {
+        Configuration.headless = true;
         open("https://asn.permkrai.ru/transport-tax/");
 
         //Проверяем наличие нужных текстов
@@ -27,8 +43,8 @@ public class TransportTaxTest {
                                         text("Вид транспортного средства"),
                                         text("Год (налоговый период)"),
                                         text("Количество месяцев владения ТС в 2019 году"));
-        
-        Configuration.headless = true;
+
+
     }
 
     @Test
