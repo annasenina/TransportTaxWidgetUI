@@ -23,6 +23,6 @@ compileTestJava {
     options.encoding = 'UTF-8'
 }
 
-tast tests (type:Test) {
+task tests (type:Test) {
     useJUnitPlatform()
 }
