@@ -23,6 +23,7 @@ public class TransportTaxTest {
     @Tag ("simple")
     @Test
     void searchSelenideInGoogleTest() {
+        Configuration.headless = true;
         open("https://google.com");
 
         $(By.name("q")).val("selenide").pressEnter();
