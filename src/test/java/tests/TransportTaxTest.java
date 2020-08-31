@@ -9,6 +9,8 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.open;
 
+import com.codeborne.selenide.Configuration;
+
 public class TransportTaxTest {
 
     @BeforeEach
