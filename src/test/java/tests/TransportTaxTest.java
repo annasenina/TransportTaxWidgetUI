@@ -15,15 +15,15 @@ import org.openqa.selenium.By;
 
 public class TransportTaxTest {
 
-    @BeforeEach
-    void beforeEachTest() {
-
+    @BeforeAll
+    void beforeAllTest() {
+         Configuration.headless = true;
     }
 
     @Tag ("simple")
     @Test
     void searchSelenideInGoogleTest() {
-        Configuration.headless = true;
+       
         open("https://google.com");
 
         $(By.name("q")).val("selenide").pressEnter();
@@ -36,7 +36,6 @@ public class TransportTaxTest {
 
     @Test
     void checkMainTextTest() {
-        Configuration.headless = true;
         open("https://asn.permkrai.ru/transport-tax/");
 
         //Проверяем наличие нужных текстов
