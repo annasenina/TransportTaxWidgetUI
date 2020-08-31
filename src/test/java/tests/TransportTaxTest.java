@@ -25,6 +25,8 @@ public class TransportTaxTest {
                                         text("Вид транспортного средства"),
                                         text("Год (налоговый период)"),
                                         text("Количество месяцев владения ТС в 2019 году"));
+        
+        Configuration.headless = true;
     }
 
     @Test
