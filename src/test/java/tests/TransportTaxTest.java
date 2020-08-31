@@ -15,7 +15,7 @@ import org.openqa.selenium.By;
 
 public class TransportTaxTest {
 
-    @BeforeAll
+    @BeforeEach
     void beforeAllTest() {
          Configuration.headless = true;
     }
@@ -23,7 +23,7 @@ public class TransportTaxTest {
     @Tag ("simple")
     @Test
     void searchSelenideInGoogleTest() {
-       
+
         open("https://google.com");
 
         $(By.name("q")).val("selenide").pressEnter();
