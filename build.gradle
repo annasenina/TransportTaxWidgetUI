@@ -24,7 +24,5 @@ compileTestJava {
 }
 
 task tests (type:Test) {
-    useJUnitPlatform{
-        includeTags 'simple'
-    }
+    useJUnitPlatform()
 }
