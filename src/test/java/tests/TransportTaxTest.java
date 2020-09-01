@@ -1,14 +1,14 @@
 package tests;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.open;
+import static io.qameta.allure.Allure.step;
 
 import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.By;
@@ -16,27 +16,35 @@ import org.openqa.selenium.By;
 public class TransportTaxTest {
 
     @BeforeEach
-    void beforeAllTest() {
-        
+    void beforeEachTest() {
+        Configuration.headless = true;
+
+        SelenideLogger.addListener("allure", new AllureSelenide()
+                .savePageSource(true)
+                .screenshots(true));
     }
 
     @Tag ("simple")
     @Test
+    @DisplayName("Простой тест на поиск Selenide в Google")
     void searchSelenideInGoogleTest() {
-        Configuration.headless = true;
-        open("https://google.com");
 
-        $(By.name("q")).val("selenide").pressEnter();
+        step("Открываем Google ", ()-> open("https://google.com"));
 
+        step ("Вводим в поиск selenide ", ()-> {
+                $(By.name("q")).val("selenide").pressEnter();
+        });
 
-        $("#res .g").shouldBe(visible).shouldHave(text("selenide.org"));
+        step ("Проверяем, что в результатах поиска есть сайт selenide.org", ()-> {
+            $("#res .g").shouldBe(visible).shouldHave(text("selenide.org"));
+        });
     }
 
 
 
     @Test
     void checkMainTextTest() {
-        Configuration.headless = true;
+
         open("https://asn.permkrai.ru/transport-tax/");
 
         //Проверяем наличие нужных текстов
@@ -50,7 +58,7 @@ public class TransportTaxTest {
 
     @Test
     void checkSuccessButtonAndTooltipTest() {
-        Configuration.headless = true;
+
         open("https://asn.permkrai.ru/transport-tax/");
 
         $(byText("Рассчитать")).shouldBe(disabled).shouldHave(text("Рассчитать"));
@@ -70,7 +78,7 @@ public class TransportTaxTest {
 
     @Test
     void checkSuccessBusTest() {
-        Configuration.headless = true;
+
         open("https://asn.permkrai.ru/transport-tax/");
 
         $(".select-search_text__145KP").click();
@@ -89,7 +97,7 @@ public class TransportTaxTest {
 
     @Test
     void checkSuccessPageTextTest() {
-        Configuration.headless = true;
+
         open("https://asn.permkrai.ru/transport-tax/");
 
         $(".select-search_text__145KP").click();
@@ -115,7 +123,7 @@ public class TransportTaxTest {
 
     @Test
     void checkSuccessPageBackButtonTest() {
-        Configuration.headless = true;
+
         open("https://asn.permkrai.ru/transport-tax/");
 
         $(".select-search_text__145KP").click();
