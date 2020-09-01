@@ -40,14 +40,12 @@ public class TransportTaxTest {
         });
     }
 
-
-
     @Test
+    @DisplayName("Проверяем наличие нужных текстов на главной странице")
     void checkMainTextTest() {
 
         open("https://asn.permkrai.ru/transport-tax/");
 
-        //Проверяем наличие нужных текстов
         $("body").shouldHave(text("Калькулятор \"Расчет транспортного налога\""),
                                         text("Вид транспортного средства"),
                                         text("Год (налоговый период)"),
@@ -57,6 +55,7 @@ public class TransportTaxTest {
     }
 
     @Test
+    @DisplayName("Проверяем тултип на кнопке 'Рассчитать'")
     void checkSuccessButtonAndTooltipTest() {
 
         open("https://asn.permkrai.ru/transport-tax/");
@@ -77,6 +76,7 @@ public class TransportTaxTest {
     }
 
     @Test
+    @DisplayName("Проверяет рассчет для автобусов с мощностью двигателя 5")
     void checkSuccessBusTest() {
 
         open("https://asn.permkrai.ru/transport-tax/");
@@ -96,6 +96,7 @@ public class TransportTaxTest {
     }
 
     @Test
+    @DisplayName("Проверяет тексты расчета для автобусов с мощностью двигателя 5")
     void checkSuccessPageTextTest() {
 
         open("https://asn.permkrai.ru/transport-tax/");
@@ -122,6 +123,7 @@ public class TransportTaxTest {
     }
 
     @Test
+    @DisplayName("Проверяет работу кнопки назад, на странице результатов расчета")
     void checkSuccessPageBackButtonTest() {
 
         open("https://asn.permkrai.ru/transport-tax/");
