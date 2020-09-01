@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
@@ -9,14 +10,16 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
+import static org.openqa.selenium.logging.LogType.BROWSER;
+import static tests.helpers.AttachmentsHelper.*;
 
 import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.By;
 
 public class TransportTaxTest {
 
-    @BeforeEach
-    void beforeEachTest() {
+    @BeforeAll
+    static void beforeAllTest() {
         Configuration.headless = true;
 
         SelenideLogger.addListener("allure", new AllureSelenide()
@@ -140,5 +143,16 @@ public class TransportTaxTest {
 
         //ToDo Проверить, что вернулись на нужную страницу
 
+    }
+
+    @AfterEach
+    public void afterEach() {
+        attachScreenshot("Last screenshot");
+        attachPageSource();
+        attachAsText("Browser console logs", getConsoleLogs());
+    }
+
+    private String getConsoleLogs() {
+        return String.join("\n", Selenide.getWebDriverLogs(BROWSER));
     }
 }
